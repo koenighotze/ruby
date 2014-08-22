@@ -1,0 +1,32 @@
+<log4r_config>
+  <pre_config>
+    <!-- change to ERROR when the game goes to production -->
+    <global level="ALL"/>
+  </pre_config>
+
+  <!-- Outputters -->
+
+  <!-- game.log records DEBUG and higher, so no game component data -->
+  <outputter name="baseout" type="FileOutputter" level="DEBUG">
+    <!-- I set the logpath from within the game. -->
+    <filename>#{logpath}/base.log</filename>
+     <formatter type="PatternFormatter" pattern="[%l] %d :%c: %m"/>
+  </outputter>
+  <!-- Spit any errors to the console. They merit special attention -->
+  <outputter name="console" type="StderrOutputter" level="WARN"/>
+  
+
+  <!-- Loggers -->
+
+  <logger name="base" level="WARN" additive="false" trace="true">
+    <outputters>baseout, console</outputters>
+  </logger>
+
+  <logger name="Bookmark" level="DEBUG" additive="true" trace="false">
+    <outputters>baseout</outputters>
+  </logger>
+  <logger name="Category" level="DEBUG" additive="true" trace="false">
+    <outputters>baseout</outputters>
+  </logger>
+  <!-- logger name="game::controller" level="ERROR" additive="true" trace="false"/ -->
+</log4r_config>
